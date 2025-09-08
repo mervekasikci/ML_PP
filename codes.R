@@ -82,7 +82,6 @@ summary(as.factor(df$CAPE0_group))
 corr_mat <- correlation(df, method = "spearman", p_adjust = "none")
 View(corr_mat[corr_mat$rho>0.7,])
 
-
 data_last <- df %>%
   select(-corr_mat[corr_mat$rho>0.7,]$Parameter2)    
 
@@ -161,7 +160,6 @@ non_zero_coefs <- non_zero_coefs[-1,]
 dim(non_zero_coefs)
 
 train_en <- subset(train.st, select = c("CAPE0_group", non_zero_coefs$V1, "age", "WASI_PRI_Composite", "gender_male"))
-dim(train_new)
 
 
 ########## Elastic net
@@ -179,3 +177,4 @@ plot(var.imp)
 pred_en <- predict(model_en, test.st[,-1])
 perf_en <- confMat(pred_en, test.st$CAPE0_group, verbose = TRUE, positive = "High")
 roc(response = as.numeric(test.st$CAPE0_group), predictor = as.numeric(pred_en), ci=TRUE)
+
